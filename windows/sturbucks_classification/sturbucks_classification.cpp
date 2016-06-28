@@ -312,6 +312,7 @@ int main(int argc, char** argv) {
 
 	string path = argv[4];
 
+	// Batch process if given a directory path
 	if (is_directory(path)) {
 		directory_iterator end_itr;
 		int file_counter = 0;
@@ -326,6 +327,7 @@ int main(int argc, char** argv) {
 
 			file_counter++;
 
+			// Kick off a batch if full
 			if (file_counter % BATCH_SIZE == 0) {
 				std::vector< std::vector<Prediction> > batch_predictions = classifier.ClassifyBatch(imgs);
 
@@ -343,10 +345,9 @@ int main(int argc, char** argv) {
 
 				imgs.clear();
 			}
-
-
 		}
 
+		// Kick off the final not full and not empty batch
 		if (imgs.size() > 0) {
 			std::vector< std::vector<Prediction> > batch_predictions = classifier.ClassifyBatch(imgs);
 
@@ -363,6 +364,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
+	// Process a single image
 	else {
 		cv::Mat img = cv::imread(path, -1);
 		CHECK(!img.empty()) << "Unable to decode image " << path;
