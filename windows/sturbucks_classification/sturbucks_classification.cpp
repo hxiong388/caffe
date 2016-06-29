@@ -211,8 +211,6 @@ void Classifier::WrapBatchInputLayer(std::vector<std::vector<cv::Mat> > *input_b
 		}
 		input_batch->push_back(vector<cv::Mat>(input_channels));
 	}
-	cv::imshow("bla", input_batch->at(1).at(0));
-	cv::waitKey(1);
 }
 
 void Classifier::Preprocess(const cv::Mat& img,
